@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<launch>
+   
+  <!--include file="$(find robot_teleop)/launch/robot_comander_plan.launch">
+  </include-->
+
+  <!-- Robot Drivers -->
+  <node pkg="robot_teleop" type="ultrasonic_broadcaster" name="ultrasonicDriver"/>
+
+
+  <!-- urdf xml robot description loaded on the Parameter Server-->  
+  <param name="robot_description" command="$(find xacro)/xacro '$(find fratomo_description)/urdf/fratomo.urdf'" /> 
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+  <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" />  
+
+  <!-- GUI Controls -->
+  <node pkg="rqt_robot_steering" type="rqt_robot_steering"  name="Pilot" />
+
+  <!-- JOYSTICK Controls-->
+  <node respawn="true" pkg="joy" type="joy_node" name="my_joy" >
+  <param name="dev" type="string" value="/dev/input/js0" />
+  <param name="deadzone" value="0.06" />
+  </node>
+  <!-- Joy Axes -->
+  <param name="axis_linear" value="4" type="int"/>
+  <param name="axis_angular" value="3" type="int"/>
+  <param name="scale_linear" value="0.8" type="double"/>
+  <param name="scale_angular" value="3.5" type="double"/>
+  <node pkg="robot_teleop" type="myJoyTeleop" name="Pilot_joy">
+    <!--remap from="/robot_base/cmd_vel" to="/cmd_vel"/-->
+  </node>
+
+  <!-- RVIZ  -->
+  <node name="visual" pkg="rviz" type="rviz" args="-d $(find robot_teleop)/config/fratomo.rviz" required="true" />
+
+
+</launch>

@@ -1,0 +1,10 @@
+
+<launch>
+
+	
+		<machine name="robot-desktop" address="192.168.1.115" user="robot" password="sshpwd" env-loader="/home/robot/catkin_ws/devel/robot_env_loader.sh"  default="true" />
+
+		<node machine="robot-desktop" pkg="robot_base" name="HwDriver"  type="interfacciaRobot"/>
+	
+
+</launch>

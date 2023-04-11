@@ -1,0 +1,13 @@
+
+
+<launch>
+ 
+
+    <node pkg="robot_base" name="HwDriver" type="interfacciaRobot"/>
+    <include file="$(find ydlidar)/launch/lidar.launch" />
+
+</launch>
+
+
+
+
